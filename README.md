@@ -1,4 +1,4 @@
-# 🔥 SpaceFire Monitor
+# SpaceFire Monitor
 
 > **FIAP - 4º Ano de Engenharia de Software**  
 > **Global Solution 2026** — *Tema: "Indústria Espacial: O Código que Move o Universo"*  
@@ -6,7 +6,7 @@
 
 ---
 
-## 📋 Contexto do Projeto
+## Contexto do Projeto
 
 O **SpaceFire Monitor** é uma plataforma inteligente e integrada para o monitoramento, previsão e resposta automatizada a focos de incêndio florestal (queimadas) em todo o território nacional. 
 
@@ -19,7 +19,7 @@ Esta parte do projeto representa o pipeline completo de Inteligência Artificial
 
 ---
 
-## 🏛️ Arquitetura da Solução
+## Arquitetura da Solução
 
 O ecossistema é composto por quatro grandes pilares modulares que garantem facilidade de manutenção e alta acoplabilidade comercial:
 
@@ -40,7 +40,7 @@ graph TD
 
 ---
 
-## 📊 O Dataset
+## O Dataset
 
 O dataset sintético contém **1.200 observações** e **15 colunas**, o que atende e supera os requisitos acadêmicos da disciplina (mínimo de 1.000 linhas e 10 colunas). A lógica de simulação replica as condições físicas reais de ignição florestal brasileira.
 
@@ -62,20 +62,25 @@ O dataset sintético contém **1.200 observações** e **15 colunas**, o que ate
 | **`confidence`** | Numérico | Grau de confiança de que a anomalia térmica é fogo real (0-100%).| NASA FIRMS |
 | **`month`** | Numérico | Mês calendário da coleta (1 a 12). | Sistema |
 | **`biome`** | Categórico | Bioma brasileiro onde o foco está localizado. | INPE Biomas |
+| **`drought_index` (Derivada)** | Numérico | Índice de seca calculado: $\text{temp\_2m} \times \frac{100 - \text{humidity}}{100}$ | Engenharia de Recursos |
+| **`vegetation_dryness` (Derivada)** | Numérico | Secura da vegetação acumulada: $\text{days\_without\_rain} \times (1.0 - \text{ndvi})$ | Engenharia de Recursos |
 | **`fire_risk` (Alvo)** | Binário | Variável Target: `0` (Risco Baixo/Ignorável) ou `1` (Risco Alto). | Calculada / Target |
 
 > [!NOTE]
-> O dataset foi propositalmente estruturado com variáveis compatíveis com as fontes reais da NASA e do INPE. Em uma implantação de produção futura, a base de dados sintética pode ser substituída sem qualquer modificação na estrutura de modelagem por APIs reais dessas instituições.
+> As variáveis **`drought_index`** e **`vegetation_dryness`** são criadas automaticamente na etapa de **Engenharia de Atributos (Feature Engineering)**. Elas combinam fatores meteorológicos e espaciais para enriquecer a capacidade preditiva do modelo de forma física e sem exigir dados adicionais do usuário final na API ou no App.
 
 ---
 
-## 🤖 Pipeline de IA e Modelagem
+## Pipeline de IA e Modelagem
 
 O pipeline em `src/train_pipeline.py` executa as seguintes etapas:
 
-1. **Pré-processamento Automatizado**:
+1. **Limpeza de Dados e Engenharia de Atributos**:
+   * **Limpeza de Dados**: Remoção automatizada de duplicatas (`drop_duplicates()`) e verificação de integridade estrutural diretamente via Pandas.
+   * **Engenharia de Atributos (Feature Engineering)**: Geração de features de domínio (`drought_index` e `vegetation_dryness`) para potencializar o aprendizado estatístico não linear dos modelos.
+2. **Pré-processamento Automatizado**:
    * Criação de Pipelines do Scikit-Learn segregados para variáveis numéricas e categóricas.
-   * **Imputação**: Mediana para numéricos, mais frequente para categóricos.
+   * **Imputação**: Mediana para numéricos, mais frequente para categóricos (lidando com nulos).
    * **Escalonamento**: `StandardScaler` para padronizar variáveis numéricas.
    * **Codificação**: `OneHotEncoder` com tratamento de novas categorias ocultas para os biomas.
 2. **Treinamento Multimodelo**:
@@ -88,7 +93,7 @@ O pipeline em `src/train_pipeline.py` executa as seguintes etapas:
 
 ---
 
-## 🧠 Explicabilidade Científica (SHAP)
+## Explicabilidade Científica (SHAP)
 
 Para contornar o problema do modelo como uma "caixa preta", utilizamos o **SHAP (SHapley Additive exPlanations)**, fundamentado em Teoria dos Jogos Cooperativos. O framework quantifica exatamente a força de influência de cada variável na predição final de risco.
 
@@ -98,7 +103,7 @@ O gráfico gerado automaticamente em `reports/shap_summary.png` expõe:
 
 ---
 
-## 🔌 Integração RPA (FastAPI REST API)
+## Integração RPA (FastAPI REST API)
 
 O arquivo `api.py` expõe um servidor REST robusto e leve, ideal para automações que monitoram anomalias termais em tempo real e disparam alertas via robôs (RPA).
 
@@ -149,7 +154,7 @@ O risco é classificado a partir da probabilidade contínua gerada pelo modelo d
 
 ---
 
-## ⚙️ Instruções de Execução
+## Instruções de Execução
 
 ### Pré-requisitos
 Certifique-se de possuir o Python 3.9+ instalado em seu sistema operacional Windows.
@@ -189,7 +194,18 @@ streamlit run app.py
 ```
 O painel abrirá automaticamente no endereço [http://localhost:8501](http://localhost:8501).
 
+### Deploy em Produção (Streamlit Community Cloud)
+
+O dashboard interativo do projeto pode ser publicado online gratuitamente:
+1. Envie o código completo do projeto para um repositório público em sua conta do **GitHub**.
+2. Acesse o site oficial do [Streamlit Share](https://share.streamlit.io) e crie uma conta gratuita associada ao seu GitHub.
+3. Clique no botão **"Create app"**, escolha o repositório correto, branch `main` e selecione `app.py` como arquivo principal.
+4. Clique em **"Deploy!"**. Sua aplicação estará no ar em poucos segundos!
+5. Copie a URL gerada e preencha abaixo para a entrega acadêmica.
+
+**Link da Aplicação Funcionando**: [https://spacefire-monitor.streamlit.app](https://share.streamlit.io) *(Substitua pelo link gerado pelo Streamlit Cloud após seu deploy)*
+
 ---
 
-## 👩‍💻 Equipe Acadêmica e Entrega
+## Equipe Acadêmica e Entrega
 Este projeto foi refinado para atender com excelência aos critérios de entrega de Inteligência Artificial para Engenharia do 4º ano da FIAP.

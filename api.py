@@ -127,6 +127,10 @@ def predict_fire_risk(payload: FirePredictionInput):
         "biome": payload.biome
     }])
 
+    # Engenharia de Atributos Dinâmica (Feature Engineering exigida pelo checklist)
+    input_data["drought_index"] = input_data["temperature_2m"] * (100.0 - input_data["relative_humidity_2m"]) / 100.0
+    input_data["vegetation_dryness"] = input_data["days_without_rain"] * (1.0 - input_data["ndvi"])
+
     try:
         # Obter probabilidade da classe 1 (alto risco de queimada)
         if hasattr(predictor, "predict_proba"):

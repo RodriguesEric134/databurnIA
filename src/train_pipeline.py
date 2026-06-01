@@ -102,6 +102,38 @@ def load_or_create_dataset() -> pd.DataFrame:
         df.to_csv(DATA_PATH, index=False)
         print(f"Novo dataset sintético gerado com {len(df)} linhas e {len(df.columns)} colunas em: {DATA_PATH}")
 
+    # Limpeza de Dados Explícita
+    print("\nExecutando limpeza de dados (Data Cleaning)...")
+    initial_shape = df.shape
+    
+    # Remover duplicados
+    df = df.drop_duplicates()
+    
+    # Tratar valores inconsistentes se existirem
+    null_count = df.isnull().sum().sum()
+    if null_count > 0:
+        print(f"Aviso: Encontrados {null_count} valores nulos no dataset original. Serão imputados no pipeline.")
+    
+    print(f"Limpeza concluída. Shape inicial: {initial_shape} -> Shape pós-limpeza: {df.shape}")
+    return df
+
+
+def engineer_features(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Realiza a engenharia de atributos criando novas variáveis relevantes para a previsão de queimadas.
+    1. drought_index (Índice de Seca): Combina temperatura e umidade relativa de forma física.
+    2. vegetation_dryness (Secura da Vegetação): Combina dias consecutivos sem chuva e vigor da vegetação (NDVI).
+    """
+    df = df.copy()
+    print("Executando Engenharia de Atributos (Feature Engineering)...")
+    
+    # drought_index = temperatura * (100 - umidade) / 100
+    df["drought_index"] = df["temperature_2m"] * (100.0 - df["relative_humidity_2m"]) / 100.0
+    
+    # vegetation_dryness = dias sem chuva * (1.0 - ndvi)
+    df["vegetation_dryness"] = df["days_without_rain"] * (1.0 - df["ndvi"])
+    
+    print("Novos atributos criados: 'drought_index' e 'vegetation_dryness'.")
     return df
 
 
@@ -237,6 +269,7 @@ def main():
     os.makedirs("reports", exist_ok=True)
 
     df = load_or_create_dataset()
+    df = engineer_features(df)
 
     target = "fire_risk"
 

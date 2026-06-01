@@ -301,6 +301,10 @@ def main():
                     "biome": biome
                 }])
 
+                # Engenharia de Atributos Dinâmica (Feature Engineering exigida pelo checklist)
+                input_df["drought_index"] = input_df["temperature_2m"] * (100.0 - input_df["relative_humidity_2m"]) / 100.0
+                input_df["vegetation_dryness"] = input_df["days_without_rain"] * (1.0 - input_df["ndvi"])
+
                 # Cálculo de Predição e Score
                 prediction = model.predict(input_df)[0]
                 probability = model.predict_proba(input_df)[0][1]
