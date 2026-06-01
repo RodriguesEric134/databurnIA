@@ -2,7 +2,14 @@
 
 > **FIAP - 4º Ano de Engenharia de Software**  
 > **Global Solution 2026** — *Tema: "Indústria Espacial: O Código que Move o Universo"*  
-> **Disciplina**: *Generative AI for Engineering*
+> **Disciplina**: *Generative AI for Engineering*  
+> 
+> **Integrantes:**  
+> * Eric Rodrigues - RM 550249  
+> * Victor Hugo Andrade - RM 550996  
+> * Manoella Waideman - RM 98906  
+> * Renato Ichikawa - RM 99242  
+> * Bernardo Rocha - RM 99209  
 
 ---
 
