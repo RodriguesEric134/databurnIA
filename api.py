@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 
 # Inicialização da API
 app = FastAPI(
-    title="SpaceFire Monitor API",
+    title="DataBurn Monitor API",
     description="API REST para predição e monitoramento inteligente de risco de queimadas. Projetada para integração com RPA e sistemas de resposta.",
     version="1.0.0"
 )
@@ -84,10 +84,10 @@ class FirePredictionResponse(BaseModel):
 
 @app.get("/")
 def read_root():
-    """Retorna metadados gerais sobre o serviço SpaceFire Monitor."""
+    """Retorna metadados gerais sobre o serviço DataBurn Monitor."""
     model_loaded = os.path.exists(MODEL_PATH)
     return {
-        "project": "SpaceFire Monitor",
+        "project": "DataBurn Monitor",
         "description": "Plataforma Inteligente para Monitoramento e Previsão de Risco de Queimadas",
         "version": "1.0.0",
         "model_loaded": model_loaded,

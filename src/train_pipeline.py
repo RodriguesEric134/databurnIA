@@ -25,7 +25,7 @@ from sklearn.linear_model import LogisticRegression
 
 RANDOM_STATE = 42
 
-DATA_PATH = "data/spacefire_dataset.csv"
+DATA_PATH = "data/databurn_dataset.csv"
 MODEL_PATH = "models/best_model.pkl"
 PREPROCESSOR_PATH = "models/preprocessor.pkl"
 SHAP_OUTPUT_PATH = "reports/shap_summary.png"
@@ -33,7 +33,7 @@ SHAP_OUTPUT_PATH = "reports/shap_summary.png"
 
 def generate_synthetic_dataset(n_rows: int = 1200) -> pd.DataFrame:
     """
-    Gera dataset sintético coerente com o problema do SpaceFire Monitor.
+    Gera dataset sintético coerente com o problema do DataBurn Monitor.
     Deve ser substituído futuramente por integração NASA FIRMS + Open-Meteo.
     """
 

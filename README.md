@@ -1,4 +1,4 @@
-# SpaceFire Monitor
+# DataBurn Monitor
 
 > **FIAP - 4º Ano de Engenharia de Software**  
 > **Global Solution 2026** — *Tema: "Indústria Espacial: O Código que Move o Universo"*  
@@ -15,7 +15,7 @@
 
 ## Contexto do Projeto
 
-O **SpaceFire Monitor** é uma plataforma inteligente e integrada para o monitoramento, previsão e resposta automatizada a focos de incêndio florestal (queimadas) em todo o território nacional. 
+O **DataBurn Monitor** é uma plataforma inteligente e integrada para o monitoramento, previsão e resposta automatizada a focos de incêndio florestal (queimadas) em todo o território nacional. 
 
 No contexto da **Indústria Espacial**, o projeto conecta a coleta de dados de sensores orbitais terrestres com modelos preditivos de inteligência artificial de última geração e sistemas de automação de processos (**RPA**). A plataforma simula a fusão de dados de fontes públicas reais:
 * **NASA FIRMS** (Active Fire Data - satélites MODIS e VIIRS)
@@ -32,7 +32,7 @@ O ecossistema é composto por quatro grandes pilares modulares que garantem faci
 
 ```mermaid
 graph TD
-    A[data/spacefire_dataset.csv] -->|Carga de Dados| B[src/train_pipeline.py]
+    A[data/databurn_dataset.csv] -->|Carga de Dados| B[src/train_pipeline.py]
     B -->|Treinamento e Seleção| C[models/best_model.pkl]
     B -->|Métricas e SHAP| D[reports/model_metrics.csv & reports/shap_summary.png]
     C -->|Inferência REST| E[api.py - FastAPI]
@@ -40,7 +40,7 @@ graph TD
     E -->|Gatilho Automático| G[Robôs RPA de Combate/Alertas]
 ```
 
-* **`data/spacefire_dataset.csv`**: Base de dados com mais de 1.000 amostras simulando as anomalias térmicas e condições climáticas.
+* **`data/databurn_dataset.csv`**: Base de dados com mais de 1.000 amostras simulando as anomalias térmicas e condições climáticas.
 * **`src/train_pipeline.py`**: Motor de treinamento responsável pelo pré-processamento, engenharia de recursos, ajuste de hiperparâmetros, benchmarking de múltiplos algoritmos de classificação e exportação de artefatos.
 * **`api.py`**: API RESTful desenvolvida com **FastAPI** voltada para a integração com RPA (Robotic Process Automation), viabilizando respostas automáticas imediatas.
 * **`app.py`**: Dashboard e demonstrador interativo desenvolvido em **Streamlit** para tomadores de decisão e engenheiros ambientais.
@@ -210,7 +210,7 @@ O dashboard interativo do projeto pode ser publicado online gratuitamente:
 4. Clique em **"Deploy!"**. Sua aplicação estará no ar em poucos segundos!
 5. Copie a URL gerada e preencha abaixo para a entrega acadêmica.
 
-**Link da Aplicação Funcionando**: [https://spacefire-monitor.streamlit.app](https://share.streamlit.io) *(Substitua pelo link gerado pelo Streamlit Cloud após seu deploy)*
+**Link da Aplicação Funcionando**: [https://databurn-monitor.streamlit.app](https://share.streamlit.io) *(Substitua pelo link gerado pelo Streamlit Cloud após seu deploy)*
 
 ---
 

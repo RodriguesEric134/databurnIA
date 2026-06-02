@@ -17,7 +17,7 @@ def load_model():
 
 def main():
     st.set_page_config(
-        page_title="SpaceFire Monitor - Dashboard",
+        page_title="DataBurn Monitor - Dashboard",
         layout="wide",
         initial_sidebar_state="expanded"
     )
@@ -33,7 +33,7 @@ def main():
         )
 
         st.markdown("---")
-        st.markdown("### SpaceFire Monitor")
+        st.markdown("### DataBurn Monitor")
         st.markdown(
             """
             Plataforma para detecção precoce, previsão probabilística e resposta a queimadas florestais no Brasil.
@@ -231,7 +231,7 @@ def main():
     st.markdown(
         """
         <div style="display:flex; align-items:center; margin-bottom: 25px;">
-            <h1 style="margin:0; font-weight:600; font-size:2rem; letter-spacing:-0.5px;">SpaceFire Monitor</h1>
+            <h1 style="margin:0; font-weight:600; font-size:2rem; letter-spacing:-0.5px;">DataBurn Monitor</h1>
             <span style="background-color:#0f172a; color:#f8fafc; border: 1px solid #334155; padding:4px 10px; border-radius:15px; font-size:11px; font-weight:500; margin-left:15px; vertical-align:middle;">RELEASE ACADÊMICO</span>
         </div>
         """,
