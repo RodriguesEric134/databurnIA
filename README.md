@@ -4,12 +4,12 @@
 > **Global Solution 2026** — *Tema: "Indústria Espacial: O Código que Move o Universo"*  
 > **Disciplina**: *Generative AI for Engineering*  
 > 
-> **Integrantes:**  
-> * Eric Rodrigues - RM 550249  
-> * Victor Hugo Andrade - RM 550996  
-> * Manoella Waideman - RM 98906  
-> * Renato Ichikawa - RM 99242  
+> **Integrantes:**
 > * Bernardo Rocha - RM 99209  
+> * Eric Rodrigues - RM 550249
+> * Manoella Waideman - RM 98906
+> * Renato Ichikawa - RM 99242
+> * Victor Hugo Andrade - RM 550996    
 
 ---
 
